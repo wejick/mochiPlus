@@ -3,7 +3,8 @@ angular.module('Up+', [
   'mobile-angular-ui',
   'Up+.controllers.Main',
   'Up+.controllers.Products',
-  'Up+.controllers.Upload'
+  'Up+.controllers.Upload',
+  'Up+.controllers.Detail'
 ])
 
 .config(function($routeProvider) {

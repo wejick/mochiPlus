@@ -13,20 +13,13 @@ var urlsToCache = [
 ];
 
 function isOnline() {
-  var x = new ( window.ActiveXObject || XMLHttpRequest )( "Microsoft.XMLHTTP" ),
-      s;
-  x.open(
-    "HEAD",
-    "//hackathon.tokopedia.com/api/ping",
-    false
-  );
-  try {
-    x.send();
-    s = x.status;
-    return ( s >= 200 && s < 300 || s === 304 );
-  } catch (e) {
-    return false;
-  }
+  return fetch('https://hackathon.tokopedia.com/api/ping').then(function(){
+    console.log('online');
+    return Promise.resolve(true);
+  },function(){
+    console.log("offline");
+    return Promise.resolve(false);
+  });
 }
 
 var lifeCycleWare = {
@@ -51,7 +44,7 @@ var root = (function() {
 function getRoot() {
   var isLocalhost = self.location.href.indexOf('localhost') > -1;
   if(isLocalhost) {
-    return 'https://hackathon.tokopedia.com/'
+    return 'https://hackathon.tokopedia.com/';
   } else {
     return '/';
   }  
@@ -68,16 +61,34 @@ var offlineResponse = JSON.stringify([{
 worker.use(lifeCycleWare);
 worker.use(pushMiddleWare);
 
-worker.get('/getPendingUpload',getPendingUploadHandler);
+//internal communication with browser
+worker.get(getRoot()+'getPendingUpload',getPendingUploadHandler);
+worker.get(getRoot()+'isInCache/*',isInCache);
+
+//communication with API
 worker.get(getRoot()+'api/product/list',getProductListHandler);
 worker.post("https://hackathon.tokopedia.com/api/product/upload",tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 
 function getPendingUploadHandler() {
-  return localforage.getItem(QUEUE_NAME).then(function(queue){
+  return localforage.getItem(QUEUE_NAME).then(function(queue) {
     pendingEntries = JSON.stringify(queue);
     
     return new Response(pendingEntries,{headers:{ 'Content-Type': 'application/json' } });
-  })
+  });
+}
+
+function isInCache(req) {
+  var tokens = (req.url + '').split('/');
+  var APIurl = getRoot()+'api/product/detail/';
+  var productId = tokens[5];
+  return caches.open(CACHE_NAME).then(function(cache){
+    return cache.match(APIurl+productId).then(function(res){
+      if(res) {
+        return new Response({status:'available'},{headers:{ 'Content-Type': 'application/json' } });
+      }
+      return new Response({status:'unvailable'},{headers:{ 'Content-Type': 'application/json' } });
+    })
+  });
 }
 
 function getProductListHandler(req) {
@@ -107,22 +118,25 @@ function getProductListHandler(req) {
 
 //use StaticCacher to caches initial resource
 //the resource would be gathered at oninstall 
-worker.use(new self.StaticCacher(urlsToCache));
+// worker.use(new self.StaticCacher(urlsToCache));
 
 // Handles offline resources saved by the StaticCacher middleware
-worker.use(new self.SimpleOfflineCache());
+// worker.use(new self.SimpleOfflineCache());
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
-    if(isOnline()){
-      console.log('lanjut');
-      return replayQueue().then(function(){
-         return fetch(req)
-      });
-    }
-    console.log('offline');
-    return enqueue(req).then(function(){
-      return fallbackResponse.clone();
+    return isOnline().then(function(status){
+      if(status) {
+        console.log('lanjut');
+        return replayQueue().then(function(){
+           return fetch(req)
+        });
+      } else {
+        console.log('offline');
+        return enqueue(req).then(function(){
+          return fallbackResponse.clone();
+        });
+      }
     });
   };
 }

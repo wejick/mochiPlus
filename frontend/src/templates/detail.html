@@ -1,20 +1,10 @@
 <div class="scrollable-content section" ng-controller="DetailController" data-ng-init="init()">
   <section class="image-slideshow mb-0">
     <div class="z-slide-wrap" id="product-slide">
-      <ul class="z-slide-content">
-          <li class="z-slide-item">
+      <ul class="z-slide-content">        
+          <li ng-repeat="image in data.images" class="z-slide-item">
               <div class="images"> 
-                <img src="https://ecs7.tokopedia.net/img/cache/700/catalog/2016/4/5/513086/513086_c2948249-dca5-4d7a-9577-1b3a44bd1d72.jpeg"> 
-             </div>
-          </li>
-          <li class="z-slide-item">
-              <div class="images"> 
-                <img src="https://ecs7.tokopedia.net/img/cache/700/catalog/2016/4/5/513086/513086_c2948249-dca5-4d7a-9577-1b3a44bd1d72.jpeg"> 
-             </div>
-          </li>
-          <li class="z-slide-item">
-              <div class="images"> 
-                <img src="https://ecs7.tokopedia.net/img/cache/700/catalog/2016/4/5/513086/513086_c2948249-dca5-4d7a-9577-1b3a44bd1d72.jpeg"> 
+                <img src="{{image.url}}"> 
              </div>
           </li>
       </ul>
@@ -22,17 +12,15 @@
   </section>
   <section class="section container-fluid">
     <div class="ml-10 mr-10 product-detail__header mb-0">
-      <h1 itemprop="name" class="mb-5 fw-600">Sepatu Boots Docmart Dr Martens pria wanita 8 lubang / hole - KULIT</h1>
+      <h1 itemprop="name" class="mb-5 fw-600">{{data.name}}</h1>
       <div class="product-detail-price mt-5 pull-left">
         <span itemprop="priceCurrency" content="IDR">Rp </span>
-        <span itemprop="price" class="fw-600">200.000</span>
+        <span itemprop="price" class="fw-600">{{data.price}}</span>
       </div>
       <div class="clearfix"></div>
       <div class="">
         <div class="details-header-new">Product Description</div>
-        <div>Dapibus enim cursus! Tortor, urna lundium, elementum mid magnis. Phasellus, ultricies sed, integer et, vel nec. Enim. Placerat, vut? Vut! Vel diam turpis sed, in et elementum? Pulvinar ac integer eros porttitor aliquet. Odio aliquam pulvinar, ultrices magna magnis. Tincidunt augue et, cursus cras est duis sit arcu ultricies lectus, nascetur amet ridiculus adipiscing nascetur adipiscing. Turpis, porta, cursus porta turpis eros, ridiculus placerat, ac lacus! A magna, dignissim non. Scelerisque in ridiculus platea urna montes? Cum. Nascetur tristique mus arcu? Porttitor sit sit, arcu dolor a amet, dictumst hac, a. Placerat? Pid vel dis et. Hac eros. Porta mattis? Magnis pid mid nisi, dis odio, arcu vel vel augue! Vel aliquet egestas lacus dictumst habitasse turpis pulvinar turpis rhoncus.
-
-  Eros in pellentesque, a, rhoncus, elit cursus risus ultrices, turpis rhoncus enim nisi porta lacus risus ac cras duis nunc ultricies? Purus risus. Integer porta aliquet velit adipiscing vel velit cursus tincidunt, nec odio enim quis facilisis in magna egestas eu porta enim mid? Dignissim a, integer dictumst mus vel magna pid phasellus. A? Risus. Sit? Ut dapibus elementum! Placerat, penatibus in nec, risus risus, integer tristique porttitor. Scelerisque, nascetur nisi? Augue cum lacus tortor ultricies rhoncus placerat natoque sed, et parturient sed, a ac non cursus. Vut massa parturient enim tempor non ac elementum, turpis integer aliquam vel mid vut odio rhoncus magna odio sit cum odio turpis et urna quis velit, tincidunt augue mid enim massa phasellus.</div>
+        <div>{{data.description}}</div>
       </div>
     </div>
 

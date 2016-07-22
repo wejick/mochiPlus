@@ -12,6 +12,23 @@ var urlsToCache = [
   '/images/sprite-unify.png'
 ];
 
+function isOnline() {
+  var x = new ( window.ActiveXObject || XMLHttpRequest )( "Microsoft.XMLHTTP" ),
+      s;
+  x.open(
+    "HEAD",
+    "//hackathon.tokopedia.com/api/ping",
+    false
+  );
+  try {
+    x.send();
+    s = x.status;
+    return ( s >= 200 && s < 300 || s === 304 );
+  } catch (e) {
+    return false;
+  }
+}
+
 var lifeCycleWare = {
   onInstall: function() {
     console.log('sw Installed');
@@ -64,7 +81,7 @@ function getPendingUploadHandler() {
 }
 
 function getProductListHandler(req) {
-  if(navigator.onLine) {
+  if(isOnline) {
     console.log('get list from api');
     var requestToCache = req.clone();
     return fetch(req).then(function(res) {
@@ -97,7 +114,7 @@ worker.use(new self.SimpleOfflineCache());
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
-    if(navigator.onLine){
+    if(isOnline){
       console.log('lanjut');
       return replayQueue().then(function(){
          return fetch(req)

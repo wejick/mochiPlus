@@ -12,7 +12,7 @@ angular.module('Up+', [
   $routeProvider.when('/', {templateUrl:'products.html',  reloadOnSearch: false});
   $routeProvider.when('/products',{templateUrl:'products.html', reloadOnSearch: false});
   $routeProvider.when('/upload',{templateUrl:'upload.html', reloadOnSearch: false});
-  $routeProvider.when('/detail',{templateUrl:'detail.html', reloadOnSearch: false});
+  $routeProvider.when('/detail/:productId',{templateUrl:'detail.html', reloadOnSearch: false});
 });
 var root = function() {
   var isLocalhost = window.location.href.indexOf('localhost') > -1 || window.location.href.indexOf('local');
@@ -22,4 +22,3 @@ var root = function() {
     return '/';
   }  
 }
-

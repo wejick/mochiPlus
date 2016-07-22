@@ -21,4 +21,3 @@ var root = function() {
     return '/';
   }  
 }
-

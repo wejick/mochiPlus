@@ -1,6 +1,15 @@
 angular.module('Up+.controllers.Products', [])
 
 .controller('ProductsController', function($scope,$http) {
+  // $scope.IntroOptions = {
+  //   steps:[
+  //   {
+  //       element: '#product-list',
+  //       intro: "Product List"
+  //   }]
+  // };
+
+  // $scope.CallMe();
 
   //get data product list from server
     $http({

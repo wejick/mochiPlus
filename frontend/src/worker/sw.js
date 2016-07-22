@@ -51,7 +51,7 @@ worker.use(pushMiddleWare);
 
 worker.post(root,tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 
-worker.post(root+'/api/product/upload'tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
+worker.post(root+'/api/product/upload',tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){

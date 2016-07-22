@@ -44,10 +44,10 @@ worker.use(pushMiddleWare);
 
 //use StaticCacher to caches initial resource
 //the resource would be gathered at oninstall 
-worker.use(new self.StaticCacher(urlsToCache));
+//worker.use(new self.StaticCacher(urlsToCache));
 
 // Handles offline resources saved by the StaticCacher middleware
-worker.use(new self.SimpleOfflineCache());
+//worker.use(new self.SimpleOfflineCache());
 
 worker.post(root,tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 

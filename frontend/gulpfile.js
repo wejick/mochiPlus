@@ -57,6 +57,8 @@ var config = {
     readTimeout:  5,
     deathTimeout: 15
   }
+  ,
+  isBuild: false
 };
 
 if (require('fs').existsSync('./config.js')) {
@@ -172,10 +174,10 @@ gulp.task('fonts', function() {
 
 gulp.task('html', function() {
   var inject = [];
-  if (typeof config.weinre === 'object') {
+  if (typeof config.weinre === 'object' && !config.isBuild) {
     inject.push('<script src="http://'+config.weinre.boundHost+':'+config.weinre.httpPort+'/target/target-script-min.js"></script>');
   }
-  if (config.cordova) {
+  if (false) {
     inject.push('<script src="cordova.js"></script>');
   }
   gulp.src(['src/html/**/*.html'])
@@ -293,6 +295,7 @@ gulp.task('weinre', function() {
 
 gulp.task('build', function(done) {
   var tasks = ['html', 'fonts', 'images', 'less', 'js', 'worker', 'manifest'];
+  config.isBuild = true;
   seq('clean', tasks, done);
 });
 

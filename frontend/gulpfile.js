@@ -196,7 +196,9 @@ gulp.task('html', function() {
 
 gulp.task('less', function () {
     gulp.src('./src/less/*.css')
+    .pipe(cssmin())
     .pipe(gulp.dest(path.join(config.dest, 'css')));
+    
     return gulp.src(config.less.src).pipe(less({
       paths: config.less.paths.map(function(p){
         return path.resolve(__dirname, p);
@@ -239,6 +241,7 @@ gulp.task('js', function() {
     .pipe(gulp.dest(path.join(config.dest, 'js')));
     
     gulp.src(config.vendor.lib)
+    .pipe(uglify())
     .pipe(gulp.dest(path.join(config.dest, 'lib')));
 });
 

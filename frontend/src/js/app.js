@@ -12,3 +12,11 @@ angular.module('Up+', [
   $routeProvider.when('/upload',{templateUrl:'upload.html', reloadOnSearch: false});
   $routeProvider.when('/detail',{templateUrl:'detail.html', reloadOnSearch: false});
 });
+var root = function() {
+  var isLocalhost = window.location.href.indexOf('localhost') > -1;
+  if(isLocalhost) {
+    return 'https://hackathon.tokopedia.com/'
+  } else {
+    return '/';
+  }  
+}

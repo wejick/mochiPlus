@@ -22,12 +22,16 @@ var config = {
     js: [
       './bower_components/angular/angular.js',
       './bower_components/angular-route/angular-route.js',
-      './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js'
+      './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
     ],
-
+    
+    lib: [
+      './src/lib/*.js'
+    ],
+    
     worker : [
       './bower_components/localforage/dist/localforage.js',
-      './src/lib/*.js'
+      './src/worker/lib/sw*.js',
     ],
 
     css: {
@@ -57,6 +61,8 @@ var config = {
     readTimeout:  5,
     deathTimeout: 15
   }
+  ,
+  isBuild: false
 };
 
 if (require('fs').existsSync('./config.js')) {
@@ -172,10 +178,10 @@ gulp.task('fonts', function() {
 
 gulp.task('html', function() {
   var inject = [];
-  if (typeof config.weinre === 'object') {
+  if (typeof config.weinre === 'object' && !config.isBuild) {
     inject.push('<script src="http://'+config.weinre.boundHost+':'+config.weinre.httpPort+'/target/target-script-min.js"></script>');
   }
-  if (config.cordova) {
+  if (false) {
     inject.push('<script src="cordova.js"></script>');
   }
   gulp.src(['src/html/**/*.html'])
@@ -229,6 +235,9 @@ gulp.task('js', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(path.join(config.dest, 'js')));
+    
+    gulp.src(config.vendor.lib)
+    .pipe(gulp.dest(path.join(config.dest, 'lib')));
 });
 
 /*===================================================
@@ -293,6 +302,7 @@ gulp.task('weinre', function() {
 
 gulp.task('build', function(done) {
   var tasks = ['html', 'fonts', 'images', 'less', 'js', 'worker', 'manifest'];
+  config.isBuild = true;
   seq('clean', tasks, done);
 });
 

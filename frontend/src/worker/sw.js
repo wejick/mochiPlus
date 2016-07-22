@@ -14,7 +14,6 @@ var urlsToCache = [
 
 var lifeCycleWare = {
   onInstall: function() {
-    self.skipWaiting();
     console.log('sw Installed');
     return Promise.resolve();
   },

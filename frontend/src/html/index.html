@@ -10,13 +10,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="stylesheet" href="css/app.min.css" />
     <link rel="stylesheet" href="css/responsive.min.css" />
+    <link rel="manifest" href="manifest.json">
     <!-- inject:js -->
     <script src="js/app.min.js"></script>
     <script>
       if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
-          .then(function(){
-            console.log('registerded');
+          .then(function(reg){
+            reg.pushManager.subscribe({
+              userVisibleOnly: true
+            }).then(function(sub) {
+              console.log('endpoint:', sub.endpoint);
+            });
           });
       }
     </script>

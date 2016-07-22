@@ -5,30 +5,17 @@ import(
 	"fmt"
 	"encoding/json"
 	"strconv"
+	"log"
+	b64 "encoding/base64"
+	"io/ioutil"
+	"strings"
 
 
 	"github.com/julienschmidt/httprouter"
 )
 
 func GetProductList(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
-	products := []*Product{}
-	productImages := []*ProductImage{}
-
-	product1 		:= &Product{}
-	product1Image 	:= &ProductImage{}
-
-
-	product1Image.Url = "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2016/5/21/22401929/22401929_57ef893b-9b0b-4444-805b-57e1cffa9e76.jpg"
-
-	productImages = append(productImages, product1Image)
-
-	product1.Name 	= "Nama Product"
-	product1.Price 	= "Rp. 100.000"
-	product1.Description = "bla bla bla bla"
-	product1.Image = productImages
-	product1.Id = 1
-
-	products = append(products, product1)
+	products := GetProductAll()
 
 	response := &Response{}
 
@@ -39,50 +26,58 @@ func GetProductList(w http.ResponseWriter, req *http.Request, _ httprouter.Param
 
 func GetProductDetail(w http.ResponseWriter, req *http.Request, params httprouter.Params) {
 	idstring := params.ByName("id")
-	productImages := []*ProductImage{}
-
-	product1 		:= &Product{}
-	product1Image 	:= &ProductImage{}
-
-
-	product1Image.Url = "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2016/5/21/22401929/22401929_57ef893b-9b0b-4444-805b-57e1cffa9e76.jpg"
-
-	productImages = append(productImages, product1Image)
-
-	product1.Name 	= "Nama Product"
-	product1.Price 	= "Rp. 100.000"
-	product1.Description = "bla bla bla bla"
-	product1.Image = productImages
-	product1.Id, _ = strconv.Atoi(idstring)
+	
+	idInt , _ := strconv.Atoi(idstring)
+	product := GetProduct(idInt)
 
 	response := &Response{}
-
-	response.Data = product1
+	response.Data = product
 
 	Render(w, req, response, 200)
 }
 
 func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.Params) {
-	idstring := params.ByName("id")
-	productImages := []*ProductImage{}
+	decoder := json.NewDecoder(req.Body)
 
-	product1 		:= &Product{}
-	product1Image 	:= &ProductImage{}
+    var product ProductForm   
+    err := decoder.Decode(&product)
+    if err != nil {
+        log.Println(err)
+    }
 
+    NewProduct := &Product{}
 
-	product1Image.Url = "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2016/5/21/22401929/22401929_57ef893b-9b0b-4444-805b-57e1cffa9e76.jpg"
+    NewProduct.Name  			= product.Name
+    NewProduct.Price 			= product.Price
+    NewProduct.Description  	= product.Description
 
-	productImages = append(productImages, product1Image)
+    for _, v := range product.Images {
+    	split := strings.Split(v.File, ",")
+    	var file string
+    	if len(split) > 1 {
+    		file = split[1]
+    	} else {
+    		file = split[0]
+    	}
 
-	product1.Name 	= "Nama Product"
-	product1.Price 	= "Rp. 100.000"
-	product1.Description = "bla bla bla bla"
-	product1.Image = productImages
-	product1.Id, _ = strconv.Atoi(idstring)
+    	bytes, err := b64.StdEncoding.DecodeString(file)
+    	if err != nil {
+    		log.Println(err, "")
+    	} else {
+    		ioutil.WriteFile("images/" + v.FileName, bytes, 0644)
+    		Newimage := &ProductImage{}
+    		Newimage.Url = "http://192.168.56.102:8080/images/" + v.FileName
+    		
+    		NewProduct.Images = append(NewProduct.Images, Newimage)
+    	}
+    }
+
+    InsertProduct(NewProduct)
+
 
 	response := &Response{}
-
-	response.Data = product1
+	response.Data = NewProduct
+	
 
 	Render(w, req, response, 202)
 }

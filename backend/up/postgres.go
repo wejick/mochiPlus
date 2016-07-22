@@ -14,7 +14,7 @@ var insertProductStmt, selectProductStmt, selectProductAllStmt, insertProductIma
 
 func init() {
 	var err error
-	dbMochi, err = sql.Open("postgres", "postgres://postgres:steph123@localhost/mochi?sslmode=disable")
+	dbMochi, err = sql.Open("postgres", "postgres://postgres@localhost/mochi?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	} else {

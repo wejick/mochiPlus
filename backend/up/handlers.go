@@ -66,7 +66,7 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
     	} else {
     		ioutil.WriteFile("images/" + v.FileName, bytes, 0644)
     		Newimage := &ProductImage{}
-    		Newimage.Url = "http://192.168.56.102:8080/images/" + v.FileName
+    		Newimage.Url = "https://hackathon.tokopedia.com/images/" + v.FileName
     		
     		NewProduct.Images = append(NewProduct.Images, Newimage)
     	}

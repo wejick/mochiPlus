@@ -81,7 +81,7 @@ function getPendingUploadHandler() {
 }
 
 function getProductListHandler(req) {
-  if(isOnline) {
+  if(isOnline()) {
     console.log('get list from api');
     var requestToCache = req.clone();
     return fetch(req).then(function(res) {
@@ -114,7 +114,7 @@ worker.use(new self.SimpleOfflineCache());
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
-    if(isOnline){
+    if(isOnline()){
       console.log('lanjut');
       return replayQueue().then(function(){
          return fetch(req)

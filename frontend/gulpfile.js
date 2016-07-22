@@ -212,7 +212,7 @@ gulp.task('less', function () {
         screens: ['0px']
       }
     }))
-    //.pipe(cssmin())
+    .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest(path.join(config.dest, 'css')));    
 });

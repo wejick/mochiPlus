@@ -1,0 +1,149 @@
+@import "mobile-angular-ui/src/less/mobile-angular-ui-base.less";
+@import "mixins.less";
+@import "variables.less";
+
+ul {
+  list-style: none;
+}
+ol {
+  list-style: none;
+}
+li {
+  line-height: 20px;
+}
+
+/*
+.products-list-container {
+  li {
+  margin-bottom: 10px;
+  float: left;
+  width: 50%;
+  padding: 0px, 5px;
+  box-sizing: border-box;
+  }
+  figure {
+    margin: 0px;
+    font-size: 0;
+    overflow: hidden;
+    max-height: 200px;
+  }
+}
+.product-list-wrapper {
+  display: inline-block;
+  max-width: 200px;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  position: relative;
+}
+.product-list-title {
+  display: block;
+  font-size: 1em;
+  font-weight: 700;
+  color: #666;
+  text-align: left;
+}
+.product-list-price {
+  display: block;
+  font-size: .9em;
+  font-weight: 600;
+  color: #ff5722;
+  padding-top: 3px;
+  margin-left: 5px;
+  text-align: left;
+}
+.product-shop-name {
+  max-width: 60%;
+  color: #999;
+  display: block;
+}
+.product-shop-location {
+  max-width: 65%;
+  height: 21px;
+}
+
+*/
+/* Icons */
+.mi-icon {
+  background: url("../images/sprite-unify.png") no-repeat transparent;
+  vertical-align: middle;
+  display: inline-block;
+}
+.mi-location {
+  width: 16px;
+  height: 16px;
+  background-position: -66px -1px;
+  background-size: 160px;
+}
+.mi-shop {
+  width: 16px;
+  height: 16px;
+  background-position: -100px 1px ;
+  background-size: 120px;
+  margin-right: 3px;
+}
+
+/*utility*/
+.pull-left {
+  float: left;
+}
+.row-fluid {
+  width: 100%;
+  .product-list-shop {
+    min-height: 25px;
+  }
+}
+.elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pr-5 {
+  padding-right: 5px;
+}
+.pl-5 {
+  padding-left: 5px;
+}
+.p-10 {
+  padding: 10px;
+}
+.bg-f8 {
+  background-color: #f8f8f8;
+}
+.font-grey {
+  color: #999;
+}
+.clearfix:before
+{
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.clearfix:after
+{
+    display: table;
+    line-height: 0;
+    content: "";
+    clear: both;
+}
+
+.product-catalog-wrapper figure {
+    float: left;
+    /*width: 28%;*/
+    margin: 0;
+    /*border-right: 1px solid #efefef;*/
+    text-align: center;
+    overflow: hidden;
+}
+
+.font-orange {
+    color: #ff5722;
+}
+
+.product-list-name {
+    display: block;
+    font-size: 1em;
+    font-weight: 700;
+    color: #666;
+    text-align: left;
+}

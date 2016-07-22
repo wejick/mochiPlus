@@ -13,10 +13,14 @@ angular.module('Up+.controllers.Products', [])
     });
     
   //get pending data
-  $scope.pendingUpload = "-";
-  if($scope.pendingUpload != "-") {
-    
-  } else {
-    
-  }
+  $scope.pendingUpload = [];
+  $http({
+    method  : 'GET',
+    url     : '/getPendingUpload'
+  }).success(function(data) {
+    data.forEach(function(item){
+      $scope.pendingUpload.push(JSON.parse(item.body));
+    });
+  });
+
 });

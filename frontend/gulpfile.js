@@ -255,6 +255,9 @@ gulp.task('worker',function(){
     
 	gulp.src('./src/worker/*.js').
 	pipe(gulp.dest(config.dest));
+  
+  gulp.src('./src/worker/*.css').
+	pipe(gulp.dest(config.dest));
 });
 
 /*===================================================

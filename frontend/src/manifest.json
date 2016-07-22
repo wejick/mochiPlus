@@ -1,7 +1,8 @@
 {
-  "name": "mochi-a7acd",
-  "gcm_sender_id": "1078991219140",
+  "name": "mochi-1381",
+  "gcm_sender_id": "106924429812",
   "permissions": [
-    "gcm"
+    "gcm",
+    "storage"
   ]
 }

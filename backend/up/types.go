@@ -2,15 +2,15 @@ package main
 
 type(
 	Product struct {
-		Id 				int 				`json:"id,omitempty"`
-		Name 			string  			`json:"name,omitempty"`
-		Images 			[]*ProductImage 	`json:"images,omitempty"`
-		Price 			int 				`json:"price,omitempty"`
-		Description 	string 				`json:"description,omitempty"`
+		Id 				int 				`json:"id"`
+		Name 			string  			`json:"name"`
+		Images 			[]*ProductImage 	`json:"images"`
+		Price 			int 				`json:"price"`
+		Description 	string 				`json:"description"`
 	}
 
 	ProductImage struct {
-		Url 		string 					`json:"url,omitempty"`
+		Url 		string 					`json:"url"`
 	}
 
 

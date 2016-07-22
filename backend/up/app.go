@@ -14,6 +14,7 @@ func main() {
 	router.GET("/api/product/detail/:id", GetProductDetail)
 
 	router.POST("/api/product/upload", ProductUpload)
+	router.POST("/notify", PushNotif)
 
 	router.ServeFiles("/images/*filepath", http.Dir("images/"))
 

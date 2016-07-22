@@ -16,7 +16,7 @@ func main() {
 	router.POST("/api/product/upload", ProductUpload)
 //	router.POST("/notify", PushNotif)
 	router.OPTIONS("/api/product/upload", OptionsAuth)
-	router.GET("/api/ping", Ping)
+	router.HEAD("/api/ping", Ping)
 
 	router.ServeFiles("/images/*filepath", http.Dir("images/"))
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"log"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -9,10 +10,15 @@ import (
 func main() {
 	router := httprouter.New()
 
-	router.GET("/product/list", GetProductList)
-	router.GET("/product/detail/:id", GetProductDetail)
+	router.GET("/api/product/list", GetProductList)
+	router.GET("/api/product/detail/:id", GetProductDetail)
 
-	router.POST("/product/upload", ProductUpload)
+	router.POST("/api/product/upload", ProductUpload)
 
-	http.ListenAndServe(":8080", router)
+	router.ServeFiles("/images/*filepath", http.Dir("images/"))
+
+	port := ":8080"
+
+	log.Println("Started at ", port)
+	http.ListenAndServe(port, router)
 }

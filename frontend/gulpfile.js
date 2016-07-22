@@ -251,13 +251,10 @@ gulp.task('js', function() {
 gulp.task('worker',function(){
     gulp.src(config.vendor.worker)
     .pipe(concat('workerlib.min.js'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('.'))
+    //.pipe(uglify())
+    //.pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(path.join(config.dest, 'lib')));
-    
-    gulp.src('./bower_components/serviceworkerware/dist/sww.js')
-    .pipe(gulp.dest(path.join(config.dest, 'lib')));
-    
+        
 	gulp.src('./src/worker/*.js').
 	pipe(gulp.dest(config.dest));
 });
@@ -282,7 +279,7 @@ gulp.task('watch', function () {
   gulp.watch(['./src/less/**/*','./src/lib/**/*.css'], ['less']);
   gulp.watch(['./src/js/**/*', './src/templates/**/*',config.vendor.js], ['js']);
   gulp.watch(['./src/images/**/*'], ['images']);
-  gulp.watch(['./src/worker/*','./src/lib/**/*.js'],['worker']);
+  gulp.watch(['./src/worker/*','./src/lib/**/*.js','./src/worker/lib/*.js'],['worker']);
   gulp.watch(['./src/manifest.json'],['manifest']);
 });
 

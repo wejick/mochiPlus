@@ -18,16 +18,16 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="lib/swiper-3.3.0.min.js"></script> -->
     <script>
-    if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(reg){
-        reg.pushManager.subscribe({
-          userVisibleOnly: true
-        }).then(function(sub) {
-          console.log('endpoint:', sub.endpoint);
-        });
-      });
-    }
+    // if('serviceWorker' in navigator) {
+    // navigator.serviceWorker.register('/sw.js')
+    //   .then(function(reg){
+    //     reg.pushManager.subscribe({
+    //       userVisibleOnly: true
+    //     }).then(function(sub) {
+    //       console.log('endpoint:', sub.endpoint);
+    //     });
+    //   });
+    // }
     </script>
     
   </head>
@@ -55,7 +55,7 @@
 
       <div class="navbar navbar-app navbar-absolute-bottom">
         <div class="btn-group justified">
-          <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar"><i class="fa fa-exclamation-circle fa-navbar"></i> Issues</a>
+          <a href="#/upload" class="btn btn-navbar">Add Product</a>
         </div>
       </div>
 

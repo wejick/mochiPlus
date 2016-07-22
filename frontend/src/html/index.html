@@ -10,20 +10,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="stylesheet" href="css/app.min.css" />
     <link rel="stylesheet" href="css/responsive.min.css" />
-    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/swiper.min.3.css" />
     <!-- inject:js -->
     <script src="js/app.min.js"></script>
+    <script src="lib/swiper-3.3.0.min.js"></script>
     <script>
-      if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(reg){
-            reg.pushManager.subscribe({
-              userVisibleOnly: true
-            }).then(function(sub) {
-              console.log('endpoint:', sub.endpoint);
-            });
-          });
-      }
+      // if('serviceWorker' in navigator) {
+      //   navigator.serviceWorker.register('/sw.js')
+      //     .then(function(){
+      //       console.log('registerded');
+      //     });
+      // }
     </script>
   </head>
   <body ng-app="Up+" ng-controller="MainController">
@@ -65,4 +62,5 @@
 
     <div ui-yield-to="modals"></div>
   </body>
+  <script src="lib/mobile-product-slider.js"></script>
 </html>

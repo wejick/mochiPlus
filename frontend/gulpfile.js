@@ -22,12 +22,16 @@ var config = {
     js: [
       './bower_components/angular/angular.js',
       './bower_components/angular-route/angular-route.js',
-      './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js'
+      './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
     ],
-
+    
+    lib: [
+      './src/lib/*.js'
+    ],
+    
     worker : [
       './bower_components/localforage/dist/localforage.js',
-      './src/lib/*.js'
+      './src/worker/lib/sw*.js',
     ],
 
     css: {
@@ -231,6 +235,9 @@ gulp.task('js', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(path.join(config.dest, 'js')));
+    
+    gulp.src(config.vendor.lib)
+    .pipe(gulp.dest(path.join(config.dest, 'lib')));
 });
 
 /*===================================================

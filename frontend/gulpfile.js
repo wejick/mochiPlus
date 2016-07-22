@@ -195,6 +195,8 @@ gulp.task('html', function() {
 ======================================================================*/
 
 gulp.task('less', function () {
+    gulp.src('./src/less/*.css')
+    .pipe(gulp.dest(path.join(config.dest, 'css')));
     return gulp.src(config.less.src).pipe(less({
       paths: config.less.paths.map(function(p){
         return path.resolve(__dirname, p);
@@ -212,7 +214,7 @@ gulp.task('less', function () {
     }))
     //.pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(path.join(config.dest, 'css')));
+    .pipe(gulp.dest(path.join(config.dest, 'css')));    
 });
 
 
@@ -255,9 +257,6 @@ gulp.task('worker',function(){
     
 	gulp.src('./src/worker/*.js').
 	pipe(gulp.dest(config.dest));
-  
-  gulp.src('./src/worker/*.css').
-	pipe(gulp.dest(config.dest));
 });
 
 /*===================================================
@@ -277,7 +276,7 @@ gulp.task('watch', function () {
     gulp.watch([config.dest + '/**/*'], ['livereload']);
   }
   gulp.watch(['./src/html/**/*'], ['html']);
-  gulp.watch(['./src/less/**/*'], ['less']);
+  gulp.watch(['./src/less/**/*','./src/lib/**/*.css'], ['less']);
   gulp.watch(['./src/js/**/*', './src/templates/**/*',config.vendor.js], ['js']);
   gulp.watch(['./src/images/**/*'], ['images']);
   gulp.watch(['./src/worker/*','./src/lib/**/*.js'],['worker']);

@@ -8,7 +8,7 @@ angular.module('Up+.controllers.Upload', [])
     console.log($scope.uploadData);
     $http({
       method  : 'POST',
-      url     : root()+'/api/product/upload',
+      url     : root()+'api/product/upload',
       data    : $scope.uploadData,
       headers : { 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin' : '*' }
     }).success(function(data) {

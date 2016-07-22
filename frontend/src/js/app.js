@@ -10,4 +10,5 @@ angular.module('Up+', [
   $routeProvider.when('/', {templateUrl:'home.html',  reloadOnSearch: false});
   $routeProvider.when('/products',{templateUrl:'products.html', reloadOnSearch: false});
   $routeProvider.when('/upload',{templateUrl:'upload.html', reloadOnSearch: false});
+  $routeProvider.when('/detail',{templateUrl:'detail.html', reloadOnSearch: false});
 });

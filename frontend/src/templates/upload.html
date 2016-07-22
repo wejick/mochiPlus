@@ -14,6 +14,13 @@
      <label>Description</label>
      <textarea ng-model="uploadData.Description" class="form-control" ></textarea>
    </div>
+   <div class="form-group has-success has-feedback">
+     <label>Upload Images</label>
+     <div id="file-forms">
+     <input type="file" name="pic" accept="image/*" ng-file-model="uploadData.Images" class="form-control" onchange="addForm()"/>
+     
+     </div>
+   </div>
    <button class="btn btn-primary btn-block">
      Upload
    </button>

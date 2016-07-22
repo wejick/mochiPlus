@@ -1,7 +1,7 @@
 importScripts('./lib/workerlib.min.js');
 importScripts('./lib/sww.js');
 // Cache storage name
-var CACHE_NAME = 'mochi_cache_v1';
+var CACHE_NAME = 'offline';
 var QUEUE_NAME = 'mochi_queue_v1';
 // url to be Cached
 var urlsToCache = [
@@ -11,6 +11,23 @@ var urlsToCache = [
   '/images/sprite-new-mobile-3.png',
   '/images/sprite-unify.png'
 ];
+
+function isOnline() {
+  var x = new ( window.ActiveXObject || XMLHttpRequest )( "Microsoft.XMLHTTP" ),
+      s;
+  x.open(
+    "HEAD",
+    "//hackathon.tokopedia.com/api/ping",
+    false
+  );
+  try {
+    x.send();
+    s = x.status;
+    return ( s >= 200 && s < 300 || s === 304 );
+  } catch (e) {
+    return false;
+  }
+}
 
 var lifeCycleWare = {
   onInstall: function() {
@@ -31,6 +48,15 @@ var root = (function() {
   return tokens.join('/');
 })();
 
+function getRoot() {
+  var isLocalhost = self.location.href.indexOf('localhost') > -1;
+  if(isLocalhost) {
+    return 'https://hackathon.tokopedia.com/'
+  } else {
+    return '/';
+  }  
+}
+
 var worker = new ServiceWorkerWare();
 
 var offlineResponse = JSON.stringify([{
@@ -42,20 +68,53 @@ var offlineResponse = JSON.stringify([{
 worker.use(lifeCycleWare);
 worker.use(pushMiddleWare);
 
+worker.get('/getPendingUpload',getPendingUploadHandler);
+worker.get(getRoot()+'api/product/list',getProductListHandler);
+worker.post("https://hackathon.tokopedia.com/api/product/upload",tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
+
+function getPendingUploadHandler() {
+  return localforage.getItem(QUEUE_NAME).then(function(queue){
+    pendingEntries = JSON.stringify(queue);
+    
+    return new Response(pendingEntries,{headers:{ 'Content-Type': 'application/json' } });
+  })
+}
+
+function getProductListHandler(req) {
+  if(isOnline) {
+    console.log('get list from api');
+    var requestToCache = req.clone();
+    return fetch(req).then(function(res) {
+      return caches.open(CACHE_NAME).then(function(cache) {
+        if(parseInt(res.status) < 400) {
+          cache.put(requestToCache,res.clone());
+        }
+        return res;
+      });
+    });
+  } else {
+    return caches.open(CACHE_NAME).then(function(cache){
+      return cache.match(req.clone()).then(function(res){
+        if(res) {
+          console.log('get list from cache');
+          return res;
+        }
+        return new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } });
+      });
+    });
+  }
+}
+
 //use StaticCacher to caches initial resource
 //the resource would be gathered at oninstall 
-//worker.use(new self.StaticCacher(urlsToCache));
+worker.use(new self.StaticCacher(urlsToCache));
 
 // Handles offline resources saved by the StaticCacher middleware
-//worker.use(new self.SimpleOfflineCache());
-
-worker.post(root,tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
-
-worker.post("https://hackathon.tokopedia.com/api/product/upload",tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
+worker.use(new self.SimpleOfflineCache());
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
-    if(navigator.onLine){
+    if(isOnline){
       console.log('lanjut');
       return replayQueue().then(function(){
          return fetch(req)

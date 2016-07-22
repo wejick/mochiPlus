@@ -48,7 +48,7 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
     NewProduct := &Product{}
 
     NewProduct.Name  			= product.Name
-    NewProduct.Price 			= product.Price
+    NewProduct.Price, _			= strconv.Atoi(product.Price)
     NewProduct.Description  	= product.Description
 
     for _, v := range product.Images {
@@ -86,6 +86,19 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
 func PushNotif() {
 
 	
+}
+
+func OptionsAuth(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+        w.Header().Set("Access-Control-Allow-Origin", "*")
+        w.Header().Set("Access-Control-Allow-Methods", "GET,PATCH,DELETE,OPTIONS,POST")
+        w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Origin")
+        w.WriteHeader(http.StatusOK)
+}
+
+func Ping(w http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	w.Header().Set("Content-Type", "application/json")
+        w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Write([]byte("pong"))
 }
 
 func Render(w http.ResponseWriter, req *http.Request, data interface{}, code int) {

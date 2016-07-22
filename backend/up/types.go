@@ -24,7 +24,7 @@ type(
 		Id 				int 				`json:"id,omitempty"`
 		Name 			string  			`json:"name,omitempty"`
 		Images 			[]*ProductImageForm 	`json:"images,omitempty"`
-		Price 			int 				`json:"price,omitempty"`
+		Price 			string 				`json:"price,omitempty"`
 		Description 	string 				`json:"description,omitempty"`
 	}
 

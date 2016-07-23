@@ -61,7 +61,7 @@ func init() {
 			WHERE
 				name <> ''
                                 and description <> ''
-                                and price <> '0'
+                                and price > 0
 		`
 
 	selectProductAllStmt, err = dbMochi.Prepare(selectProductAll)
@@ -116,22 +116,26 @@ func InsertProduct(product *Product) (*Product) {
 
 	result, err := tx.Stmt(insertProductStmt).Exec(product.Name, product.Price, product.Description)
 	if err != nil {
-		tx.Rollback()
 		log.Println(err)
 		return nil
 	}
-	
+
+	product.Id = GetLastInsertId(tx)
+	tx.Commit()
 
 	if result != nil {
-		product.Id = GetLastInsertId(tx)
 		if product.Id != 0 {
 			for _, v := range product.Images {
+				tx, err := dbMochi.Begin()
+				if err != nil {
+					log.Println(err)
+				}
 				tx.Stmt(insertProductImageStmt).Exec(product.Id, v.Url)
+				tx.Commit()
 			}
 		}
 	}	
-
-	tx.Commit()
+	
 
 	return product
 }
@@ -203,5 +207,6 @@ func GetLastInsertId(tx *sql.Tx) int {
 
 		return id
 	}
+	rows.Close()
 	return 0
 }

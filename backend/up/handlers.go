@@ -48,7 +48,7 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
     NewProduct := &Product{}
 
     NewProduct.Name  			= product.Name
-    NewProduct.Price 			= product.Price
+    NewProduct.Price, _			= strconv.Atoi(product.Price)
     NewProduct.Description  	= product.Description
 
     for _, v := range product.Images {

@@ -62,6 +62,8 @@ func init() {
 				name <> ''
                                 and description <> ''
                                 and price > 0
+			ORDER BY
+				id DESC
 		`
 
 	selectProductAllStmt, err = dbMochi.Prepare(selectProductAll)

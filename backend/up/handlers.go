@@ -9,6 +9,7 @@ import(
 	b64 "encoding/base64"
 	"io/ioutil"
 	"strings"
+	"bytes"
 
 
 	"github.com/julienschmidt/httprouter"
@@ -74,7 +75,7 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
 
     InsertProduct(NewProduct)
 
-
+	PushNotif(product.PushEndpoint)
 	response := &Response{}
 	response.Data = NewProduct
 	
@@ -82,11 +83,26 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
 	Render(w, req, response, 202)
 }
 
-
-func PushNotif() {
-
-	
+func PushNotif(endpoint string) {
+	var jsonStr = []byte(`{"to":"`+ endpoint +`"}`)
+	req, err := http.NewRequest("POST", "https://gcm-http.googleapis.com/gcm/send", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		log.Println(err)
+	}
+	req.Header.Set("Content-Type","application/json")
+	req.Header.Set("Authorization","key=AIzaSyAj_dVLSgjwrtXJdMyLDSpYfVSZGOOb0h4")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
 }
+
 
 func OptionsAuth(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
         w.Header().Set("Access-Control-Allow-Origin", "*")

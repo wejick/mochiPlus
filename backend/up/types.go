@@ -26,6 +26,7 @@ type(
 		Images 			[]*ProductImageForm 	`json:"images,omitempty"`
 		Price 			string 				`json:"price,omitempty"`
 		Description 	string 				`json:"description,omitempty"`
+		PushEndpoint 	string 				`json:"pushEndpoint,omitempty"`
 	}
 
 	ProductImageForm struct {

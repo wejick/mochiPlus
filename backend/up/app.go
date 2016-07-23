@@ -14,7 +14,6 @@ func main() {
 	router.GET("/api/product/detail/:id", GetProductDetail)
 
 	router.POST("/api/product/upload", ProductUpload)
-//	router.POST("/notify", PushNotif)
 	router.OPTIONS("/api/product/upload", OptionsAuth)
 	router.GET("/api/ping", Ping)
 

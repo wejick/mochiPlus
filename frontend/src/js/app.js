@@ -4,7 +4,8 @@ angular.module('Up+', [
   'Up+.controllers.Main',
   'Up+.controllers.Products',
   'Up+.controllers.Upload',
-  'Up+.controllers.Detail'
+  'Up+.controllers.Detail',
+  'ng-file-model'
 ])
 .config(function($routeProvider) {
   $routeProvider.when('/', {templateUrl:'products.html',  reloadOnSearch: false});

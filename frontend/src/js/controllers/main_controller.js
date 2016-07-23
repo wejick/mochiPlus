@@ -9,4 +9,13 @@ angular.module('Up+.controllers.Main', [])
     }
     console.log(statusOnline);
     $scope.bgStatusOnline = statusOnline;
+
+    $scope.$on('$routeChangeSuccess', function(next, current) { 
+        var tokens = self.location.href.split('/');
+        if(tokens[4] == "upload") {
+            $scope.disableBtnAddProduct = 1;
+        } else {
+            $scope.disableBtnAddProduct = 0;
+        }
+    });
 });

@@ -9,6 +9,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="192x192" href="images/launcher-icon-4x.png">
     <link rel="stylesheet" href="css/app.min.css" />
     <link rel="stylesheet" href="css/responsive.min.css" />
     <!-- <link rel="stylesheet" href="css/swiper.min.3.css" /> -->
@@ -19,6 +20,7 @@
     <script src="lib/swiper-3.3.0.min.js"></script> -->
     <script>
     //if('serviceWorker' in navigator) {
+      
     if(false) {
       navigator.serviceWorker.register('/sw.js')
       .then(function(reg){
@@ -43,7 +45,7 @@
 
       <!-- Navbars -->
 
-      <div class="navbar navbar-app navbar-absolute-top bg-green-42">
+      <div id="navbar" class="navbar navbar-app navbar-absolute-top bg-green-42">
         <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
           <div class="topbar-logo-wrapper"><a href="#/">Up+</a></div>
         </div>
@@ -72,4 +74,27 @@
     <div ui-yield-to="modals"></div>
   </body>
   <script src="lib/zSlider.js"></script>
+  <script src="lib/toast.js"></script>
+  <script type="text/javascript">
+    
+
+
+    window.addEventListener('load', function() {
+      function updateOnlineStatus(event) {
+        var condition = navigator.onLine ? "online" : "offline";
+
+        if(condition == "offline") {
+          var toast = new iqwerty.toast.Toast();
+          toast.setText('You are Offline').setDuration(3000).show();
+          document.getElementById("navbar").className = "navbar navbar-app navbar-absolute-top bg-offline";
+        }
+        if(condition == "online") {
+          document.getElementById("navbar").className = "navbar navbar-app navbar-absolute-top bg-green-42";
+        }
+      }
+
+      window.addEventListener('online',  updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+    });
+  </script>
 </html>

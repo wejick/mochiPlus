@@ -74,8 +74,9 @@ func ProductUpload(w http.ResponseWriter, req *http.Request, params httprouter.P
     }
 
     InsertProduct(NewProduct)
-
-	PushNotif(product.PushEndpoint)
+	if NewProduct.Name != "" && NewProduct.Price != 0 && NewProduct.Description != "" {
+		PushNotif(product.PushEndpoint)
+	}
 	response := &Response{}
 	response.Data = NewProduct
 	

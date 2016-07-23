@@ -4,7 +4,12 @@
       <ul id="product-slide" class="z-slide-content">        
           <li ng-repeat="image in data.images" slide-repeat-directive class="z-slide-item">
               <div class="images"> 
-                <img ng-src="{{image.url}}"> 
+                <img ng-src="{{image.url || 'https://hackathon.tokopedia.com/images/broken_image.png'}}"> 
+             </div>
+          </li>
+          <li ng-if="data.images.length == 0" slide-repeat-directive class="z-slide-item">
+              <div class="images">
+                <img ng-src="https://hackathon.tokopedia.com/images/broken_image.png">
              </div>
           </li>
       </ul>

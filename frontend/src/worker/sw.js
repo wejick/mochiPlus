@@ -9,7 +9,8 @@ var urlsToCache = [
   '/css/app.min.css',
   '/js/app.min.js',
   '/images/sprite-new-mobile-3.png',
-  '/images/sprite-unify.png'
+  '/images/sprite-unify.png',
+  '/images/offline.png'
 ];
 
 function isOnline() {

@@ -1,12 +1,9 @@
 <div class="scrollable">
   <div class="scrollable-content section" ng-controller="ProductsController">
-<!--     <div class="info text-center" ng-if="pendingUpload == '-'">
-      <strong><h3>No Pending Upload</h3></strong>
-    </div> -->
     <div class='productList-wrapper' ng-if="pendingUpload != '-'">
       <div class="productList-title"><strong>Uploading</strong></div>
       <ul>
-        <li ng-repeat="item in data">
+        <li ng-repeat="item in pendingUpload">
           <div class="row-fluid product-catalog-wrapper">
             <figure>
               <a href="{{item.images[0].url}}" class="relative">

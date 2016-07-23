@@ -49,9 +49,16 @@ worker.use(pushMiddleWare);
 // Handles offline resources saved by the StaticCacher middleware
 //worker.use(new self.SimpleOfflineCache());
 
-worker.post(root,tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
-
+worker.get('/getPendingUpload',getPendingUploadHandler);
 worker.post("https://hackathon.tokopedia.com/api/product/upload",tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
+
+function getPendingUploadHandler() {
+  return localforage.getItem(QUEUE_NAME).then(function(queue){
+    pendingEntries = JSON.stringify(queue);
+    
+    return new Response(pendingEntries,{headers:{ 'Content-Type': 'application/json' } });
+  })
+}
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){

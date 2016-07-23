@@ -69,3 +69,4 @@ backend/up/up
 
 backend/up/gin-bin
 bin/
+src/

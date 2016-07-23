@@ -13,20 +13,13 @@ var urlsToCache = [
 ];
 
 function isOnline() {
-  var x = new ( window.ActiveXObject || XMLHttpRequest )( "Microsoft.XMLHTTP" ),
-      s;
-  x.open(
-    "HEAD",
-    "//hackathon.tokopedia.com/api/ping",
-    false
-  );
-  try {
-    x.send();
-    s = x.status;
-    return ( s >= 200 && s < 300 || s === 304 );
-  } catch (e) {
+  return fetch('https://hackathon.tokopedia.com/api/ping').then(function(){
+    console.log('online');
+    return true;
+  },function(){
+    console.log("offline");
     return false;
-  }
+  });
 }
 
 var lifeCycleWare = {

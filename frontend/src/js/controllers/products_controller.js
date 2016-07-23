@@ -33,16 +33,6 @@ angular.module('Up+.controllers.Products', [])
     });      
   });
 
-  function isOnline() {
-    return fetch('https://hackathon.tokopedia.com/api/ping').then(function(){
-      return true;
-    },function(){
-      return false;
-    });
-  }
-
-  $scope.online = isOnline();
- 
     
   //get pending data
   $scope.pendingUpload = [];

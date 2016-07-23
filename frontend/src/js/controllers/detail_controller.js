@@ -21,6 +21,7 @@ angular.module('Up+.controllers.Detail', [])
           // options here
           autoplay: false
       });
+
     }
   };
 });

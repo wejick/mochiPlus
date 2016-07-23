@@ -27,14 +27,32 @@ self.addEventListener('install', function(event) {
     return self.skipWaiting();
   });
 });
-var lifeCycleWare = {
-  onActivate: function(evt) {
-    console.log('sw Activated');
-  },
-  onMessage: function(evt) {
-    console.log('Got messgae '+evt);
-  }
-};
+self.addEventListener('activate', function(event) {
+  self.clients.matchAll({
+    includeUncontrolled: true
+  }).then(function(clientList) {
+    var urls = clientList.map(function(client) {
+      return client.url;
+    });
+    console.log('[ServiceWorker] Matching clients:', urls.join(', '));
+  });
+
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('[ServiceWorker] Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(function() {
+      console.log('[ServiceWorker] Claiming clients for version', CACHE_NAME);
+      return self.clients.claim();
+    })
+  );
+});
 
 var root = (function() {
   var tokens = (self.location + '').split('/');
@@ -59,7 +77,6 @@ var offlineResponse = JSON.stringify([{
 }]);
 
 //use lifeCycleWare to handle sw lifeCycle
-worker.use(lifeCycleWare);
 worker.use(pushMiddleWare);
 
 //internal communication with browser

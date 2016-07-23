@@ -113,6 +113,9 @@ li {
 .font-grey {
   color: #999;
 }
+.font-white {
+  color: #fff;
+}
 .clearfix:before
 {
     display: table;
@@ -127,13 +130,19 @@ li {
     clear: both;
 }
 
+.product-catalog-wrapper {
+  overflow: auto;
+}
+
 .product-catalog-wrapper figure {
     float: left;
-    /*width: 28%;*/
     margin: 0;
-    /*border-right: 1px solid #efefef;*/
     text-align: center;
-    overflow: hidden;
+    padding-right: 10px;
+}
+
+.product-catalog-wrapper img {
+  display: block;
 }
 
 .font-orange {
@@ -190,4 +199,27 @@ h1 {
 
 .productList-wrapper .info-data {
   min-height: 92px;
+}
+
+.bg-green-42 {
+    background-color: #42b549!important;
+}
+
+.topbar-logo-wrapper a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-app .btn-navbar {
+    color: #42b549;
+    text-transform: uppercase;
+}
+
+.uploading {
+  background: #f8f8f8;
+}
+
+.offline {
+  opacity: 0.5;
 }

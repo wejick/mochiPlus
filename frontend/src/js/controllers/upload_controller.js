@@ -5,7 +5,7 @@ angular.module('Up+.controllers.Upload', [])
 .controller('UploadController', function($scope, $http){
   $scope.uploadData = {};
   $scope.upload = function(){
-    console.log($scope.uploadData);
+    
     $http({
       method  : 'POST',
       url     : root()+'api/product/upload',

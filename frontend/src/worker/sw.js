@@ -21,12 +21,13 @@ function isOnline() {
     return Promise.resolve(false);
   });
 }
-
-var lifeCycleWare = {
-  onInstall: function() {
+self.addEventListener('install', function(event) {
+  event.waitUntil(function(){
     console.log('sw Installed');
-    return Promise.resolve();
-  },
+    return self.skipWaiting();
+  });
+});
+var lifeCycleWare = {
   onActivate: function(evt) {
     console.log('sw Activated');
   },
@@ -79,6 +80,8 @@ function getPendingUploadHandler() {
 function getProductListHandler(req) {
   return isOnline().then(function(status){
     if(status){
+      //replay here
+      replayQueue();
       console.log('get list from api');
       var requestToCache = req.clone();
       return fetch(req).then(function(res) {

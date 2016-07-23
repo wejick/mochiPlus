@@ -17,8 +17,9 @@
    <div class="form-group has-success has-feedback">
      <label>Upload Images</label>
      <div id="file-forms">
-     <input type="file" name="pic" accept="image/*" ng-file-model="uploadData.Images" class="form-control" onchange="addForm()"/>
-     
+     <input type="file" name="pic" accept="image/*" ng-file-model="uploadData.Images" class="form-control"/>
+     <input type="file" name="pic" accept="image/*" ng-file-model="uploadData.Images" class="form-control" id="img-1" style="display:none"/>
+     <input type="file" name="pic" accept="image/*" ng-file-model="uploadData.Images" class="form-control" id="img-2" style="display:none"/>
      </div>
    </div>
    <button class="btn btn-primary btn-block">

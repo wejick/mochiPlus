@@ -11,6 +11,7 @@
     "serviceworkerware": "^0.3.0",
     "localforage": "^1.4.2",
     "intro.js": "^2.2.0",
-    "angular-intro.js": "^2.0.3"
+    "angular-intro.js": "^2.0.3",
+    "angular-pull-to-refresh": "^0.3.0"
   }
 }

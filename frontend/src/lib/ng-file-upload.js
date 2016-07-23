@@ -28,6 +28,10 @@ function addForm() {
                                 scope.ngFileModel = new Array();
                                 scope.ngFileModel.push(obj);
                             }
+                            if(scope.ngFileModel.length <= 2) {
+                                var img = document.getElementById("img-"+scope.ngFileModel.length);
+                                img.removeAttribute("style");
+                            }
                         });
                     }
                     reader.readAsDataURL(changeEvent.target.files[0]);

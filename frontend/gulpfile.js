@@ -12,7 +12,7 @@ var config = {
   cordova: false,
   less: {
     src: [
-      './src/less/app.less', './src/less/responsive.less'
+      './src/less/app.less', './src/less/responsive.less', './bower_components/angular-pull-to-refresh/dist/angular-pull-to-refresh.min.css'
     ],
     paths: [
       './src/less', './bower_components'
@@ -23,7 +23,8 @@ var config = {
       './bower_components/angular/angular.js',
       './bower_components/angular-route/angular-route.js',
       './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js',
-      './src/lib/ng-file-upload.js'
+      './src/lib/ng-file-upload.js',
+      './bower_components/angular-pull-to-refresh/dist/angular-pull-to-refresh.min.js'
     ],
     
     lib: [

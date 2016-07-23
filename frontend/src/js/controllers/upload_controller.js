@@ -7,6 +7,8 @@ angular.module('Up+.controllers.Upload', [])
   $scope.uploadData = {};
   //$location.path('/');
   $scope.upload = function(){
+    console.log($scope.uploadData);
+
     $scope.uploadData.pushEndpoint = pushEndpoint;
     $http({
       method  : 'POST',

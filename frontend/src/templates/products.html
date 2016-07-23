@@ -52,7 +52,7 @@
                <div class="info-data">
                   <span class="product-list-name ellipsis">{{item.name}}</span>
                   <div class="row-fluid product-catalog-price">
-                    <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
+                    <span class="product-catalog-price font-orange bold">{{item.price | currency:"Rp ":0}}</span>
                   </div>
                   <span ng-if="item.status != 'unavailable'" class="product-status">Cached</span>
                 </div>

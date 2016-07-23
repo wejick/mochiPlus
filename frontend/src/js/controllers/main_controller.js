@@ -7,7 +7,6 @@ angular.module('Up+.controllers.Main', [])
     if(navigator.onLine) {
         statusOnline = 'bg-green-42';
     }
-    console.log(statusOnline);
     $scope.bgStatusOnline = statusOnline;
 
     $scope.$on('$routeChangeSuccess', function(next, current) { 

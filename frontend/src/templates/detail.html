@@ -15,7 +15,7 @@
       <h1 itemprop="name" class="mb-5 fw-600">{{data.name}}</h1>
       <div class="product-detail-price mt-5 pull-left">
         <span itemprop="priceCurrency" content="IDR">Rp </span>
-        <span itemprop="price" class="fw-600">{{data.price}}</span>
+        <span itemprop="price" class="fw-600">{{data.price | number:0}}</span>
       </div>
       <div class="clearfix"></div>
       <div class="">

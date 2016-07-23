@@ -58,6 +58,10 @@ func init() {
 				, description
 			FROM
 				product
+			WHERE
+				name <> ''
+                                and description <> ''
+                                and price <> '0'
 		`
 
 	selectProductAllStmt, err = dbMochi.Prepare(selectProductAll)

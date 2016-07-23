@@ -1,8 +1,19 @@
 {
-  "name": "mochi-1381",
+  "name": "Up+",
   "gcm_sender_id": "106924429812",
   "permissions": [
     "gcm",
     "storage"
-  ]
+  ],
+  "icons": [
+    {
+      "src": "launcher-icon-4x.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": 4.0
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape"
 }

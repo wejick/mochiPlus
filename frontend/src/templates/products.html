@@ -1,10 +1,10 @@
 <div class="scrollable">
   <div class="scrollable-content section" ng-controller="ProductsController">
-    <div class="info" ng-if="pendingUpload == '-'">
-      No Pending Upload
-    </div>
+<!--     <div class="info text-center" ng-if="pendingUpload == '-'">
+      <strong><h3>No Pending Upload</h3></strong>
+    </div> -->
     <div class='productList-wrapper' ng-if="pendingUpload != '-'">
-      <div>Uploading</div>
+      <div class="productList-title"><strong>Uploading</strong></div>
       <ul>
         <li ng-repeat="item in data">
           <div class="row-fluid product-catalog-wrapper">
@@ -13,11 +13,13 @@
               <img width="90" itemprop="image" class="" src="{{item.images[0].url}}" alt="{{item.name}}" data-original="{{item.images[0].url}}" style="display: inline;">
               </a>
             </figure>
-            <div class="">
+            <div class="info">
               <a href="https://m.tokopedia.com/catalog/50764/apple-iphone-se---16-gb">
-                <span class="product-list-name ellipsis">{{item.name}}</span>
-                <div class="row-fluid product-catalog-price">
-                  <span class="product-catalog-price font-orange bold">{{item.price}}</span>
+                <div class="info-data">
+                  <span class="product-list-name ellipsis">{{item.name}}</span>
+                  <div class="row-fluid product-catalog-price">
+                    <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
+                  </div>
                 </div>
               </a>
             </div>
@@ -26,21 +28,24 @@
         </li>
       </ul>
     </div>
-    <div class='productList-wrapper'>
-      <div>List Products</div>
+    <div class="productList-wrapper">
+      <div class="productList-title"><strong>List Products</strong></div>
       <ul>
         <li ng-repeat="item in data">
           <div class="row-fluid product-catalog-wrapper">
             <figure>
               <a href="{{item.images[0].url}}" class="relative">
               <img width="90" itemprop="image" class="" src="{{item.images[0].url}}" alt="{{item.name}}" data-original="{{item.images[0].url}}" style="display: inline;">
-              </a>
+              <!-- <img width="90" itemprop="image" class="" src="https://ecs7.tokopedia.net/img/cache/200-square/catalog/2016/3/30/621832/621832_226d5e78-1739-42fa-afa6-92e6b5494cc5.jpg" alt="{{item.name}}" data-original="{{item.images[0].url}}" style="display: inline;">
+              </a> -->
             </figure>
-            <div class="">
+            <div class="info">
               <a href="https://m.tokopedia.com/catalog/50764/apple-iphone-se---16-gb">
-                <span class="product-list-name ellipsis">{{item.name}}</span>
-                <div class="row-fluid product-catalog-price">
-                  <span class="product-catalog-price font-orange bold">{{item.price}}</span>
+                <div class="info-data">
+                  <span class="product-list-name ellipsis">{{item.name}}</span>
+                  <div class="row-fluid product-catalog-price">
+                    <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
+                  </div>
                 </div>
               </a>
             </div>

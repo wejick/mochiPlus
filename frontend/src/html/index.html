@@ -20,7 +20,7 @@
     <script>
     //if('serviceWorker' in navigator) {
     if(false) {
-    navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('/sw.js')
       .then(function(reg){
         reg.pushManager.subscribe({
           userVisibleOnly: true
@@ -56,7 +56,7 @@
 
       <div class="navbar navbar-app navbar-absolute-bottom">
         <div class="btn-group justified">
-          <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar"><i class="fa fa-exclamation-circle fa-navbar"></i> Issues</a>
+          <a href="#/upload" class="btn btn-navbar">Add Product</a>
         </div>
       </div>
 

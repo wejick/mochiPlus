@@ -8,7 +8,7 @@ import(
 )
 
 var dbMochi *sql.DB
-var insertProductStmt, selectProductStmt, selectProductAllStmt, insertProductImageStmt,
+var selectProductStmt, selectProductAllStmt, insertProductStmt, insertProductImageStmt,
 	selectProductImageStmt, selectCurrvalStmt *sql.Stmt
 
 
@@ -27,11 +27,11 @@ func init() {
 			VALUES
 				($1, $2, $3)
 		`
-
 	insertProductStmt, err = dbMochi.Prepare(insertProductQuery)
-	if err != nil {
-		log.Println(err)
-	}
+        if err != nil {
+                log.Println(err)
+        }
+
 
 	selectProductQuery := `
 			SELECT
@@ -78,11 +78,11 @@ func init() {
 		`
 
 	insertProductImageStmt, err = dbMochi.Prepare(insertProductImageQuery)
-	if err != nil {
-		log.Println(err)
-	}
+        if err != nil {
+                log.Println(err)
+        }
 
-	
+
 	selectProductImageQuery := `
 			SELECT
 				url
@@ -109,18 +109,29 @@ func init() {
 }
 
 func InsertProduct(product *Product) (*Product) {
-	result, err := insertProductStmt.Exec(product.Name, product.Price, product.Description)
+	tx, err := dbMochi.Begin()
 	if err != nil {
 		log.Println(err)
 	}
 
-	if result != nil {
-		product.Id = GetLastInsertId()
+	result, err := tx.Stmt(insertProductStmt).Exec(product.Name, product.Price, product.Description)
+	if err != nil {
+		tx.Rollback()
+		log.Println(err)
+		return nil
+	}
+	
 
-		for _, v := range product.Images {
-			insertProductImageStmt.Exec(product.Id, v.Url)
+	if result != nil {
+		product.Id = GetLastInsertId(tx)
+		if product.Id != 0 {
+			for _, v := range product.Images {
+				tx.Stmt(insertProductImageStmt).Exec(product.Id, v.Url)
+			}
 		}
 	}	
+
+	tx.Commit()
 
 	return product
 }
@@ -180,8 +191,8 @@ func GetImages(productId int) []*ProductImage {
 	return productImages
 }
 
-func GetLastInsertId() int {
-	rows, err := selectCurrvalStmt.Query()
+func GetLastInsertId(tx *sql.Tx) int {
+	rows, err := tx.Stmt(selectCurrvalStmt).Query()
 	if err != nil {
 		log.Println(err)
 	}

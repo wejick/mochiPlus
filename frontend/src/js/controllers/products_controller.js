@@ -43,6 +43,7 @@ angular.module('Up+.controllers.Products', [])
     data.forEach(function(item){
       $scope.pendingUpload.push(JSON.parse(item.body));
     });
+    $scope.apply();
   });
 
 });

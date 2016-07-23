@@ -3,9 +3,10 @@ angular.module('Up+.controllers.Upload', [])
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 .controller('UploadController', function($scope, $http){
+  var pushEndpoint = document.getElementsByName('pushEndpoint')[0].value;
   $scope.uploadData = {};
   $scope.upload = function(){
-    
+    $scope.uploadData.pushEndpoint = pushEndpoint;
     $http({
       method  : 'POST',
       url     : root()+'api/product/upload',
@@ -15,5 +16,4 @@ angular.module('Up+.controllers.Upload', [])
       console.log("success with response "+data);
     });
   };
-  
 });

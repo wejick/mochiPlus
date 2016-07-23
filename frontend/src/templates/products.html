@@ -3,7 +3,7 @@
 <!--     <div class="info text-center" ng-if="pendingUpload == '-'">
       <strong><h3>No Pending Upload</h3></strong>
     </div> -->
-    <div class='productList-wrapper' ng-if="pendingUpload != '-'">
+    <div class='productList-wrapper' ng-if="pendingUpload.length > 0">
       <div class="productList-title"><strong>Uploading</strong></div>
       <ul>
         <li ng-repeat="pendingItem in pendingUpload">
@@ -45,6 +45,9 @@
                   <span class="product-list-name ellipsis">{{item.name}}</span>
                   <div class="row-fluid product-catalog-price">
                     <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
+                  </div>
+                  <div class="row-fluid product-cacheStatus">
+                    <span class="bold">{{item.status}}</span>
                   </div>
                 </div>
               </a>

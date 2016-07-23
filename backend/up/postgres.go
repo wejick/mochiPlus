@@ -145,6 +145,7 @@ func GetProduct(productId int) *Product {
 	if err != nil {
 		log.Println(err)
 	}
+	defer rows.Close()
 
 	if rows.Next() {
 		product := &Product{}
@@ -163,7 +164,10 @@ func GetProductAll() []*Product {
 	rows, err := selectProductAllStmt.Query()
 	if err != nil {
 		log.Println(err)
+		return nil
 	}
+	defer rows.Close()
+
 
 	for rows.Next() {
 		product := &Product{}
@@ -184,6 +188,8 @@ func GetImages(productId int) []*ProductImage {
 	if err != nil {
 		log.Println(err)
 	}
+	defer rows.Close()
+	
 
 	for rows.Next() {
 		productImage := &ProductImage{}
@@ -200,6 +206,7 @@ func GetLastInsertId(tx *sql.Tx) int {
 	if err != nil {
 		log.Println(err)
 	}
+	defer rows.Close()
 
 	if rows.Next() {
 		var id int

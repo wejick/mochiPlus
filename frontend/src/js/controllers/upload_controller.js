@@ -2,9 +2,10 @@ angular.module('Up+.controllers.Upload', [])
 .config(function ($httpProvider) {
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
-.controller('UploadController', function($scope, $http){
+.controller('UploadController', function($scope, $http, $location){
   var pushEndpoint = document.getElementsByName('pushEndpoint')[0].value;
   $scope.uploadData = {};
+  //$location.path('/');
   $scope.upload = function(){
     $scope.uploadData.pushEndpoint = pushEndpoint;
     $http({
@@ -14,7 +15,17 @@ angular.module('Up+.controllers.Upload', [])
       headers : { 'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin' : '*' }
     }).success(function(data) {
       console.log("success with response "+data);
-    });
-    location.path('/');
+    });    
+    showToast();
+    $location.path('/');
   };
 });
+function showToast(){
+  if(isOnline) {
+    var toast = new iqwerty.toast.Toast();
+    toast.setText('Uploading your product').setDuration(1500).show();
+  } else {
+    var toast = new iqwerty.toast.Toast();
+    toast.setText('You have pending upload').setDuration(1500).show();
+  }
+}

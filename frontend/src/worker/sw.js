@@ -63,7 +63,6 @@ worker.use(pushMiddleWare);
 
 //internal communication with browser
 worker.get(getRoot()+'getPendingUpload',getPendingUploadHandler);
-worker.get(getRoot()+'isInCache/*',isInCache);
 
 //communication with API
 worker.get(getRoot()+'api/product/list',getProductListHandler);
@@ -77,44 +76,32 @@ function getPendingUploadHandler() {
   });
 }
 
-function isInCache(req) {
-  var tokens = (req.url + '').split('/');
-  var APIurl = getRoot()+'api/product/detail/';
-  var productId = tokens[5];
-  return caches.open(CACHE_NAME).then(function(cache){
-    return cache.match(APIurl+productId).then(function(res){
-      if(res) {
-        return new Response({status:'available'},{headers:{ 'Content-Type': 'application/json' } });
-      }
-      return new Response({status:'unvailable'},{headers:{ 'Content-Type': 'application/json' } });
-    })
-  });
-}
-
 function getProductListHandler(req) {
-  if(isOnline()) {
-    console.log('get list from api');
-    var requestToCache = req.clone();
-    return fetch(req).then(function(res) {
-      return caches.open(CACHE_NAME).then(function(cache) {
-        if(parseInt(res.status) < 400) {
-          cache.put(requestToCache,res.clone());
-        }
-        return res;
-      });
-    });
-  } else {
-    console.log('get from cache 1');
-    return caches.open(CACHE_NAME).then(function(cache){
-      return cache.match(req.clone()).then(function(res){
-        if(res) {
-          console.log('get list from cache');
+  return isOnline().then(function(status){
+    if(status){
+      console.log('get list from api');
+      var requestToCache = req.clone();
+      return fetch(req).then(function(res) {
+        return caches.open(CACHE_NAME).then(function(cache) {
+          if(parseInt(res.status) < 400) {
+            cache.put(requestToCache,res.clone());
+          }
           return res;
-        }
-        return new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } });
+        });
+      });  
+    } else 
+    {
+      return caches.open(CACHE_NAME).then(function(cache){
+        return cache.match(req.clone()).then(function(res){
+          if(res) {
+            console.log('get list from cache');
+            return res;
+          }
+          return new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } });
+        });
       });
-    });
-  }
+    }
+  });
 }
 
 //use StaticCacher to caches initial resource

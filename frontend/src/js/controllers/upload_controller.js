@@ -21,7 +21,7 @@ angular.module('Up+.controllers.Upload', [])
   };
 });
 function showToast(){
-  if(isOnline) {
+  if(isOnlineVar) {
     var toast = new iqwerty.toast.Toast();
     toast.setText('Uploading your product').setDuration(1500).show();
   } else {

@@ -81,7 +81,7 @@ var offlineResponse = JSON.stringify([{
 worker.use(pushMiddleWare);
 
 //internal communication with browser
-worker.get(getRoot()+'getPendingUpload',getPendingUploadHandler);
+worker.get(root+'getPendingUpload',getPendingUploadHandler);
 
 //communication with API
 worker.get(getRoot()+'api/product/list',getProductListHandler);

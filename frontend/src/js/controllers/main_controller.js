@@ -1,4 +1,4 @@
-var isOnline = true;
+var isOnlineVar = true;
 angular.module('Up+.controllers.Main', [])
 
 .controller('MainController', function($scope){
@@ -6,7 +6,7 @@ angular.module('Up+.controllers.Main', [])
     var statusOnline = 'bg-offline';
     if(navigator.onLine) {
         statusOnline = 'bg-green-42';
-        isOnline = true;
+        isOnlineVar = true;
     }
     $scope.bgStatusOnline = statusOnline;
 

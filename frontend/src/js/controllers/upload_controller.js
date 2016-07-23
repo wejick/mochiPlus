@@ -15,5 +15,6 @@ angular.module('Up+.controllers.Upload', [])
     }).success(function(data) {
       console.log("success with response "+data);
     });
+    location.path('/');
   };
 });

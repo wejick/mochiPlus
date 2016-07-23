@@ -11,7 +11,7 @@
     </div>
   </section>
   <section class="section container-fluid">
-    <div class="ml-10 mr-10 product-detail__header mb-0">
+    <div class="ml-10 mr-10 product-detail__header mb-0" ng-if="data.name">
       <h1 itemprop="name" class="mb-5 fw-600">{{data.name}}</h1>
       <div class="product-detail-price mt-5 pull-left">
         <span itemprop="priceCurrency" content="IDR">Rp </span>
@@ -22,6 +22,10 @@
         <div class="details-header-new">Product Description</div>
         <div>{{data.description}}</div>
       </div>
+    </div>
+    <div class="ml-10 mr-10 product-detail__header mb-0" ng-if="!data.name">
+      <div style="'top':50%,'left':50%">You're offline</div>
+      <img src='/images/offline.png' />
     </div>
 
   </section>

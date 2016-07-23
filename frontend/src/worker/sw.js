@@ -51,7 +51,7 @@ worker.use(pushMiddleWare);
 
 worker.post(root,tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 
-worker.post(root+'/api/product/upload',tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
+worker.post("https://hackathon.tokopedia.com/api/product/upload",tryOrFallback(new Response(offlineResponse,{headers:{ 'Content-Type': 'application/json' } })));
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
@@ -139,6 +139,6 @@ function deserialize(data) {
   return Promise.resolve(new Request(data.url, data));
 }
 
-self.addEventListener('online',replayQueue());
+//self.addEventListener('online',replayQueue());
 
 worker.init();

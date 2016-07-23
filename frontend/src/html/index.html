@@ -102,13 +102,13 @@
         var condition = navigator.onLine ? "online" : "offline";
         
         if(condition == "offline") {
-          isOnline = false;
+          isOnlineVar = false;
           var toast = new iqwerty.toast.Toast();
           toast.setText('You are Offline').setDuration(3000).show();
           document.getElementById("navbar").className = "navbar navbar-app navbar-absolute-top bg-offline";
         }
         if(condition == "online") {
-          isOnline = true;
+          isOnlineVar = true;
           document.getElementById("navbar").className = "navbar navbar-app navbar-absolute-top bg-green-42";
         }
       }

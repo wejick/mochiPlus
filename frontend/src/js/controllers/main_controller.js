@@ -1,12 +1,12 @@
-var isOnline = true;
-angular.module('Up+.controllers.Main', ['mgcrea.pullToRefresh'])
+var isOnlineVar = true;
+angular.module('Up+.controllers.Main', [])
 
 .controller('MainController', function($scope, $q){
 
     var statusOnline = 'bg-offline';
     if(navigator.onLine) {
         statusOnline = 'bg-green-42';
-        isOnline = true;
+        isOnlineVar = true;
     }
     $scope.bgStatusOnline = statusOnline;
 

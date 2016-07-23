@@ -10,6 +10,22 @@ angular.module('Up+.controllers.Products', [])
   // };
 
   // $scope.CallMe();
+    //get pending data
+  
+  $scope.getPendingUpload = function()
+  {
+    $scope.pendingUpload = [];
+    return $http({
+      method  : 'GET',
+      url     : '/getPendingUpload'
+    }).success(function(data) {
+      data.forEach(function(item){
+        $scope.pendingUpload.push(JSON.parse(item.body));
+      });
+      $scope.apply();
+    });
+  }
+    
   var APIDetailurl = 'https://hackathon.tokopedia.com/api/product/detail/';
   //get data product list from server
   $http({
@@ -18,6 +34,7 @@ angular.module('Up+.controllers.Products', [])
     data    : "",
     headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
   }).success(function(res) {
+    $scope.getPendingUpload();
     $scope.data = res.data;
     caches.open('offline').then(function(cache){
       $scope.data.forEach(function(data){
@@ -31,19 +48,6 @@ angular.module('Up+.controllers.Products', [])
         });
       });
     });      
-  });
-
-    
-  //get pending data
-  $scope.pendingUpload = [];
-  $http({
-    method  : 'GET',
-    url     : '/getPendingUpload'
-  }).success(function(data) {
-    data.forEach(function(item){
-      $scope.pendingUpload.push(JSON.parse(item.body));
-    });
-    $scope.apply();
   });
 
 });

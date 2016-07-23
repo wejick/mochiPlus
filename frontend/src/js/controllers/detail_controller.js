@@ -11,10 +11,16 @@ angular.module('Up+.controllers.Detail', [])
   }).success(function(res) {
     $scope.data = res.data;
   });
-  $scope.init = function () {
+
+}).directive('slideRepeatDirective', function() {
+  return function(scope, element, attrs) {
+    if (scope.$last){
+      // iteration is complete, do whatever post-processing
+      // is necessary
       var sliderdemo = new Slider('#product-slide', '.z-slide-item', {
-        // options here
-        autoplay: false
-    });
+          // options here
+          autoplay: false
+      });
+    }
   };
 });

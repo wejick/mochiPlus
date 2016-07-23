@@ -1,8 +1,8 @@
-<div class="scrollable-content section" ng-controller="DetailController" data-ng-init="init()">
+<div class="scrollable-content section" ng-controller="DetailController">
   <section class="image-slideshow mb-0">
     <div class="z-slide-wrap" id="product-slide">
       <ul class="z-slide-content">        
-          <li ng-repeat="image in data.images" class="z-slide-item">
+          <li ng-repeat="image in data.images" slide-repeat-directive class="z-slide-item">
               <div class="images"> 
                 <img src="{{image.url}}"> 
              </div>

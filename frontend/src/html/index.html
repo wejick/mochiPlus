@@ -61,18 +61,17 @@
       <!-- Navbars -->
 
       <div id="navbar" class="navbar navbar-app navbar-absolute-top {{bgStatusOnline}}" style="width:100%">
-        <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
-          <div class="topbar-logo-wrapper">
+        <div class="navbar-brand navbar-brand-left" ui-yield-to="title" style="z-index:1000;position:absolute">
+          <span class="topbar-logo-wrapper ">
              <a href="#/">Up+</a> 
-          </div>
+          </span>
 
         </div>
-        <div class="navbar-brand navbar-brand-center" ui-yield-to="title" style="text-align:left">
+        <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
 <div class="topbar-logo-wrapper">
              <a onclick="window.location.reload()">Refresh</a>
           </div>
-
-        </div>
+</div>
       </div>
 
       <div class="navbar navbar-app navbar-absolute-bottom">

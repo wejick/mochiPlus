@@ -15,10 +15,10 @@ var urlsToCache = [
 function isOnline() {
   return fetch('https://hackathon.tokopedia.com/api/ping').then(function(){
     console.log('online');
-    return true;
+    return Promise.resolve(true);
   },function(){
     console.log("offline");
-    return false;
+    return Promise.resolve(false);
   });
 }
 
@@ -125,15 +125,18 @@ function getProductListHandler(req) {
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){
-    if(isOnline()){
-      console.log('lanjut');
-      return replayQueue().then(function(){
-         return fetch(req)
-      });
-    }
-    console.log('offline');
-    return enqueue(req).then(function(){
-      return fallbackResponse.clone();
+    return isOnline().then(function(status){
+      if(status) {
+        console.log('lanjut');
+        return replayQueue().then(function(){
+           return fetch(req)
+        });
+      } else {
+        console.log('offline');
+        return enqueue(req).then(function(){
+          return fallbackResponse.clone();
+        });
+      }
     });
   };
 }

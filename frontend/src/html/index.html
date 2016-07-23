@@ -21,18 +21,21 @@
     <script>
     if('serviceWorker' in navigator) {
       
-   // if(false) {
+//    if(true) {
       navigator.serviceWorker.register('/sw.js')
       .then(function(reg){
         reg.pushManager.subscribe({
           userVisibleOnly: true
         }).then(function(sub) {
-          console.log('endpoint:', sub.endpoint);
+          var tokens = sub.endpoint.split('/');
+          var pushEndpoint = tokens[5];
+          console.log('endpoint:', pushEndpoint);
+          document.getElementsByName('pushEndpoint')[0].setAttribute("value",pushEndpoint);
         });
       });
     }
     </script>
-    
+    <input type="hidden" value="" name="pushEndpoint"/>
   </head>
   <body ng-app="Up+" ng-controller="MainController">
 
@@ -77,7 +80,6 @@
   <script src="lib/toast.js"></script>
   <script type="text/javascript">
     
-
 
     window.addEventListener('load', function() {
       function updateOnlineStatus(event) {

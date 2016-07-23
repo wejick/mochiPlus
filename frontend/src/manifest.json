@@ -1,6 +1,6 @@
 {
   "name": "Up+",
-  "gcm_sender_id": "106924429812",
+  "gcm_sender_id": "1078991219140",
   "permissions": [
     "gcm",
     "storage"

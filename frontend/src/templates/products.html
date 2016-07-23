@@ -40,25 +40,19 @@
               </a>
             </figure>
             <div class="info">
-              <a ng-show="item.status == 'unavailable'" href="javascript:;">
-               <div class="info-data">
+              <a ng-show="item.status == 'unavailable' && !online" href="javascript:;">
+               <div class="info-data offline">
                   <span class="product-list-name ellipsis">{{item.name}}</span>
                   <div class="row-fluid product-catalog-price">
                     <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
-                  </div>
-                  <div class="row-fluid product-cacheStatus">
-                    <span class="bold">{{item.status}}</span>
                   </div>
                 </div>
               </a>
-              <a ng-show="item.status != 'unavailable'" href="/#/detail/{{item.id}}">
+              <a ng-show="item.status != 'unavailable' || online" href="/#/detail/{{item.id}}">
                <div class="info-data">
                   <span class="product-list-name ellipsis">{{item.name}}</span>
                   <div class="row-fluid product-catalog-price">
                     <span class="product-catalog-price font-orange bold">Rp {{item.price}}</span>
-                  </div>
-                  <div class="row-fluid product-cacheStatus">
-                    <span class="bold">{{item.status}}</span>
                   </div>
                 </div>
               </a>

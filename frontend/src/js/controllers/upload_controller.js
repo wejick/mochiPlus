@@ -19,7 +19,7 @@ angular.module('Up+.controllers.Upload', [])
       console.log("success with response "+data);
     });    
     showToast();
-    $location.path('/');
+    window.open('/','_self');
   };
 });
 function showToast(){

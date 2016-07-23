@@ -104,6 +104,7 @@ function getProductListHandler(req) {
       });
     });
   } else {
+    console.log('get from cache 1');
     return caches.open(CACHE_NAME).then(function(cache){
       return cache.match(req.clone()).then(function(res){
         if(res) {

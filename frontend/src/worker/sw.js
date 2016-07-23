@@ -106,10 +106,10 @@ function getProductListHandler(req) {
 
 //use StaticCacher to caches initial resource
 //the resource would be gathered at oninstall 
-// worker.use(new self.StaticCacher(urlsToCache));
+worker.use(new self.StaticCacher(urlsToCache));
 
 // Handles offline resources saved by the StaticCacher middleware
-// worker.use(new self.SimpleOfflineCache());
+worker.use(new self.SimpleOfflineCache());
 
 function tryOrFallback(fallbackResponse) {
   return function(req,res){

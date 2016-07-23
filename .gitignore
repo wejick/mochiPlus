@@ -68,5 +68,4 @@ backend/up/images/*
 backend/up/up
 
 backend/up/gin-bin
-src/
 bin/

@@ -200,6 +200,6 @@ function deserialize(data) {
   return Promise.resolve(new Request(data.url, data));
 }
 
-//self.addEventListener('online',replayQueue());
+self.addEventListener('online',replayQueue());
 
 worker.init();

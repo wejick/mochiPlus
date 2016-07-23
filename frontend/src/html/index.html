@@ -9,6 +9,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="192x192" href="images/launcher-icon-4x.png">
     <link rel="stylesheet" href="css/app.min.css" />
     <link rel="stylesheet" href="css/responsive.min.css" />
     <!-- <link rel="stylesheet" href="css/swiper.min.3.css" /> -->
@@ -19,7 +20,7 @@
     <script src="lib/swiper-3.3.0.min.js"></script> -->
     <script>
     //if('serviceWorker' in navigator) {
-    if(true) {
+    if(false) {
       navigator.serviceWorker.register('/sw.js')
       .then(function(reg){
         reg.pushManager.subscribe({

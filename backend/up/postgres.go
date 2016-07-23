@@ -163,6 +163,7 @@ func GetProductAll() []*Product {
 	rows, err := selectProductAllStmt.Query()
 	if err != nil {
 		log.Println(err)
+		return nil
 	}
 
 	for rows.Next() {
